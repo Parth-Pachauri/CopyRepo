@@ -1,0 +1,179 @@
+<div class="alert-detail-container">
+
+  <!-- Header -->
+  <header class="detail-header">
+    <div class="header-left">
+      <button class="back-btn" (click)="goBack()">
+        <span class="arrow">←</span>
+      </button>
+      
+      <div class="alert-info" *ngIf="alert">
+        <h1 class="alert-id">{{ alert.alertId }}</h1>
+        <div class="alert-badges">
+          <span class="badge badge-status">Open - LT</span>
+          <span class="badge badge-risk" [ngClass]="'badge-' + alert.riskRating.toLowerCase()">
+            {{ alert.riskRating }}
+          </span>
+        </div>
+        <div class="alert-meta">
+          <span>Alert On: Monday, September 07, 2025 📅</span>
+          <span>Ageing: 30 📅</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="header-right">
+      <button class="icon-btn">📖 Quick Guide</button>
+      <button class="nav-btn" (click)="goToPrevious()">← Previous</button>
+      <button class="nav-btn" (click)="goToNext()">Next →</button>
+      <button class="toggle-btn">
+        <span>Hide Panel</span>
+        <div class="toggle-switch"></div>
+      </button>
+    </div>
+  </header>
+
+  <!-- Models & Risk Flags -->
+  <div class="tags-section" *ngIf="alert">
+    <div class="tag-group">
+      <label>Models:</label>
+      <span class="tag tag-blue">Attempt to Conceal Location</span>
+      <span class="tag tag-blue">Round Amount Activity</span>
+    </div>
+    <div class="tag-group">
+      <label>Risk Flags:</label>
+      <span class="tag tag-teal">Country Sensitivity</span>
+      <span class="tag tag-teal">Opaque Structure</span>
+    </div>
+  </div>
+
+  <!-- Main Tabs -->
+  <div class="tabs-container">
+    <div class="main-tabs">
+      <button class="tab" 
+              [class.active]="activeTab === 'overview'"
+              (click)="setActiveTab('overview')">
+        Overview
+      </button>
+      <button class="tab" 
+              [class.active]="activeTab === 'disambiguation'"
+              (click)="setActiveTab('disambiguation')">
+        Disambiguation
+      </button>
+      <button class="tab" 
+              [class.active]="activeTab === 'summary'"
+              (click)="setActiveTab('summary')">
+        Alert Summary
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="tab-content">
+
+    <!-- Overview Tab -->
+    <div *ngIf="activeTab === 'overview'" class="overview-content">
+      <p>Overview content goes here...</p>
+    </div>
+
+    <!-- Disambiguation Tab -->
+    <div *ngIf="activeTab === 'disambiguation'" class="disambiguation-content">
+      
+      <!-- Sub Tabs -->
+      <div class="sub-tabs">
+        <button class="sub-tab" 
+                [class.active]="activeSubTab === 'main-entity'"
+                (click)="setActiveSubTab('main-entity')">
+          Main Entity
+        </button>
+        <button class="sub-tab" 
+                [class.active]="activeSubTab === 'transaction-parties'"
+                (click)="setActiveSubTab('transaction-parties')">
+          Transaction Parties
+        </button>
+      </div>
+
+      <!-- Main Entity Content -->
+      <div *ngIf="activeSubTab === 'main-entity'" class="main-entity-content">
+        
+        <!-- Main Entity Parent Selector -->
+        <div class="parent-selector">
+          <label>Main Entity Parent:</label>
+          <select [(ngModel)]="mainEntityParent">
+            <option>Main  Party - 1</option>
+            <option>Main  Party - 2</option>
+          </select>
+          <span class="selected-id">{{ selectedEntityId }}</span>
+          <div class="flag-toggle">
+            <label>Flag Party pair quality issue.</label>
+            <input type="checkbox" [(ngModel)]="flagPartyPairQuality">
+          </div>
+        </div>
+
+        <!-- Entity Table -->
+        <table class="entity-table">
+          <thead>
+            <tr>
+              <th>Select</th>
+              <th>Entity Name</th>
+              <th>Identity Type</th>
+              <th>Identity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let entity of entities">
+              <td><input type="radio" name="selectedEntity"></td>
+              <td>{{ entity.name }}</td>
+              <td>
+                <select [(ngModel)]="entity.identityType">
+                  <option>LEI</option>
+                  <option>FENERGO</option>
+                  <option>CRDS</option>
+                  <option>RMPM</option>
+                  <option>New</option>
+                </select>
+              </td>
+              <td>
+                <input type="text" 
+                       [(ngModel)]="entity.identity" 
+                       [placeholder]="entity.identity || 'Type in'">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Transaction Parties Content -->
+      <div *ngIf="activeSubTab === 'transaction-parties'" class="transaction-parties-content">
+        <p>Transaction Parties content goes here...</p>
+      </div>
+
+    </div>
+
+    <!-- Alert Summary Tab -->
+    <div *ngIf="activeTab === 'summary'" class="summary-content">
+      <p>Alert Summary content goes here...</p>
+    </div>
+
+  </div>
+
+  <!-- Help Panel (Right Side) -->
+  <div class="help-panel">
+    <div class="help-icon">💼</div>
+    <h3>Disambiguation!</h3>
+    <p>What is disambiguation? What action is expected from users? ultrices vitae facilisi sed aliquam lectus adipiscing viverra iaculis sed.</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Loading alert details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+    <button (click)="goBack()">← Back to Alert Queue</button>
+  </div>
+
+</div>
