@@ -1,0 +1,35 @@
+<aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
+
+  <!-- Icon strip — always visible -->
+  <div class="icon-strip">
+    <button class="icon-strip-toggle" (click)="toggleSidebar()">
+      <span class="arrow" [class.flipped]="!isSidebarCollapsed">&#10095;</span>
+    </button>
+    <div class="icon-item active" title="SMART">
+      <span>&#128737;</span>
+      <small>SMART</small>
+    </div>
+    <div class="icon-item" title="App 2">
+      <span>&#128188;</span>
+      <small>App - 2</small>
+    </div>
+  </div>
+
+  <!-- Flyout nav panel — visible when expanded -->
+  <div class="nav-flyout" *ngIf="!isSidebarCollapsed">
+    <div class="flyout-header">
+      <span>ML Guardian</span>
+      <button (click)="toggleSidebar()">&#10094;</button>
+    </div>
+    <nav class="sidebar-nav">
+      <p class="nav-section-label">Operations</p>
+      <a class="nav-link active" [routerLink]="['/dashboard']">My Metrics</a>
+      <a class="nav-link" [routerLink]="['/alert-queue']">Alert Queue</a>
+      <a class="nav-link">Preferences</a>
+      <a class="nav-link">Menu - 4</a>
+
+      <p class="nav-section-label">Insights</p>
+      <a class="nav-link">Operational Metrics</a>
+      <a class="nav-link">KPI</a>
+    </nav>
+  </div>

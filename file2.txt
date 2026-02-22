@@ -1,0 +1,100 @@
+.sidebar {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  transition: width 0.3s ease;
+}
+
+/* Icon strip — always visible narrow column */
+.icon-strip {
+  width: 80px;
+  min-width: 80px;
+  background: #f0eef8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12px;
+  gap: 8px;
+  border-right: 1px solid #e0e0e0;
+}
+
+.icon-strip-toggle {
+  background: transparent;
+  border: 1px solid #7b2fbe;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+
+  .arrow {
+    color: #7b2fbe;
+    font-size: 12px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+
+    &.flipped { transform: rotate(180deg); }
+  }
+}
+
+.icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  color: #555;
+  font-size: 20px;
+  transition: background 0.2s;
+
+  small {
+    font-size: 10px;
+    margin-top: 4px;
+    color: #666;
+  }
+
+  &:hover { background: #e8e0f7; }
+
+  &.active {
+    background: #ddd6f3;
+    color: #6a1b9a;
+
+    small { color: #6a1b9a; font-weight: 700; }
+  }
+}
+
+/* Flyout nav panel */
+.nav-flyout {
+  width: 220px;
+  min-width: 220px;
+  background: #fff;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+}
+
+.flyout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #6a1b9a;
+  border-bottom: 1px solid #f0f0f0;
+
+  button {
+    background: transparent;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    color: #555;
+    font-size: 12px;
+  }
+}
