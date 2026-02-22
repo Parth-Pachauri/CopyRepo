@@ -1,0 +1,194 @@
+<div class="app-shell">
+
+  <!-- TOP HEADER -->
+  <header class="top-header">
+    <div class="header-left">
+      <span class="header-title">1st Guardian</span>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn" title="Notifications">🔔</button>
+      <button class="icon-btn" title="Help">❓</button>
+      <button class="icon-btn avatar">SA</button>
+    </div>
+  </header>
+
+  <!-- Fixed Shield Toggle Button (Always Visible) -->
+  <button class="fixed-shield-toggle" 
+          (click)="toggleSidebar()" 
+          [class.hidden]="!isSidebarCollapsed"
+          [title]="isSidebarCollapsed ? 'Open Sidebar' : 'Close Sidebar'">
+    <div class="shield-icon">🛡️</div>
+    <div class="shield-label">SMART</div>
+  </button>
+
+  <div class="body-wrap">
+
+    <!-- SIDEBAR (Slides in from left) -->
+    <aside class="sidebar" [class.open]="!isSidebarCollapsed">
+
+      <!-- Sidebar Header with branding and collapse button -->
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="brand-icon">🛡️</div>
+          <div class="brand-info">
+            <div class="brand-text">SMART</div>
+            <div class="brand-subtitle">1ML Guardian</div>
+          </div>
+        </div>
+        
+        <!-- Collapse Arrow Button -->
+        <button class="collapse-btn" (click)="toggleSidebar()" title="Collapse Sidebar">
+          <span class="arrow">❮</span>
+        </button>
+      </div>
+
+      <!-- Navigation Menu with Icons -->
+      <nav class="sidebar-nav">
+        
+        <!-- Operations Section -->
+        <div class="nav-section">
+          <p class="nav-section-label">Operations</p>
+          
+          <a class="nav-item active" [routerLink]="['/dashboard']">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">My Metrics</span>
+          </a>
+          
+          <a class="nav-item" [routerLink]="['/alert-queue']">
+            <span class="nav-icon">📋</span>
+            <span class="nav-text">Alert Queue</span>
+          </a>
+          
+          <a class="nav-item">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-text">Preferences</span>
+          </a>
+          
+          <a class="nav-item">
+            <span class="nav-icon">📁</span>
+            <span class="nav-text">Menu - 4</span>
+          </a>
+        </div>
+
+        <!-- Insights Section -->
+        <div class="nav-section">
+          <p class="nav-section-label">Insights</p>
+          
+          <a class="nav-item">
+            <span class="nav-icon">📈</span>
+            <span class="nav-text">Operational Metrics</span>
+          </a>
+          
+          <a class="nav-item">
+            <span class="nav-icon">🎯</span>
+            <span class="nav-text">KPI</span>
+          </a>
+        </div>
+
+        <!-- App Section -->
+        <div class="nav-section">
+          <a class="nav-item">
+            <span class="nav-icon">💼</span>
+            <span class="nav-text">App - 2</span>
+          </a>
+        </div>
+
+      </nav>
+    </aside>
+
+    <!-- Overlay (appears when sidebar is open, click to close) -->
+    <div class="sidebar-overlay" 
+         *ngIf="!isSidebarCollapsed" 
+         (click)="toggleSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" [class.sidebar-open]="!isSidebarCollapsed">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1 class="page-title">Operations / My Metrics</h1>
+        <button class="guide-btn">📖 Guide</button>
+      </div>
+
+      <!-- Hero Banner -->
+      <div class="hero-banner">
+        <div class="hero-text">
+          <h2>Lorem ipsum nisl erat</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dolor at felis donec
+             tellus. Pharetra, suspendisse malesuada viverra pellentesque ac ornare. Cras nulla
+             id vestibulum molestie tristique. Ullamcorper eu massa ultrices morbi laoreet cras
+             id. Pulvinar feugiat donec ultrices tortor vulputate dui in.</p>
+          <p><em>Cras nulla id vestibulum molestie tristique. Ullamcorper eu massa ultrices.</em></p>
+        </div>
+        <div class="hero-image">
+          <div class="money-graphic">
+            <div class="note note-green">€200</div>
+            <div class="note note-yellow">€500</div>
+            <div class="note note-blue">€100</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date Filter -->
+      <div class="date-row">
+        <label class="date-label">As Of Date</label>
+        <input class="date-input" type="date" [value]="selectedDate" (change)="onDateChange($event)">
+      </div>
+
+      <!-- Metrics Cards -->
+      <div class="metrics-grid">
+        @for (m of metrics; track m.title) {
+          <div class="metric-card">
+            <p class="metric-title">{{ m.title }}</p>
+            <p class="metric-sub">{{ m.sub }}</p>
+            <p class="metric-value">{{ m.value }}</p>
+            <p class="metric-date">{{ m.date }}</p>
+          </div>
+        }
+      </div>
+
+      <!-- Bottom Two Columns -->
+      <div class="bottom-grid">
+
+        <!-- Instructions -->
+        <div class="card instructions-card">
+          <h3 class="card-title">Instructions &amp; Best Practices</h3>
+          <div class="instructions-body">
+            <p>Review all high-priority alerts (P1) within 24 hours of assignment.</p>
+            <p>Escalate unresolved P1 alerts after 48 hours to Team Lead.</p>
+            <p>Document all investigation steps in the case notes before closing.</p>
+            <p>Cross-reference client transaction history before marking as false positive.</p>
+          </div>
+        </div>
+
+        <!-- Smart Identified Alert -->
+        <div class="card smart-alerts-card">
+          <h3 class="card-title">Smart Identified Alert</h3>
+          <table class="smart-table">
+            <thead>
+              <tr>
+                <th>Alert Id</th>
+                <th>Generated On</th>
+                <th>Risk Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (a of recentAlerts; track a.alertId) {
+                <tr>
+                  <td>{{ a.alertId }}</td>
+                  <td>{{ a.generatedOn | date:'dd/MM/yyyy' }}</td>
+                  <td>
+                    <span class="risk-badge" [ngClass]="'risk-' + a.riskScore.toLowerCase()">
+                      {{ a.riskScore }}
+                    </span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
