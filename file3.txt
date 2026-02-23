@@ -1,0 +1,30 @@
+import { Data } from '../../services/data';  // Import your service
+
+export class AlertQueueComponent implements OnInit {
+  allAlerts: any[] = [];
+  
+  constructor(private dataService: Data) {}  // Inject service
+
+  ngOnInit(): void {
+    this.loadAlerts();
+  }
+
+  loadAlerts(): void {
+    this.isLoading = true;
+    this.error = null;
+
+    this.dataService.getData().subscribe({
+      next: (alerts) => {
+        console.log('✅ Loaded alerts:', alerts);
+        this.allAlerts = alerts;
+        this.applyQuickFilters();
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('❌ Error loading alerts:', err);
+        this.error = 'Failed to load alerts';
+        this.isLoading = false;
+      }
+    });
+  }
+}
